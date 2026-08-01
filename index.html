@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pit Stop — Occupational health for Metro Manila's delivery riders</title>
+<meta name="description" content="Pit Stop turns fuel station forecourts into ten-minute occupational health stations for Metro Manila's delivery and motorcycle-taxi riders.">
+<meta property="og:title" content="Pit Stop">
+<meta property="og:description" content="Health checks where riders already stop.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Lato:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#10171C;
+    --ink-2:#42525C;
+    --ink-3:#7A8992;
+    --paper:#FFFFFF;
+    --surface:#F1F4F5;
+    --teal:#0E5C63;
+    --teal-soft:#E3EDEE;
+    --amber:#E4922B;
+    --rule:#DCE3E5;
+    --rule-strong:#C3CDD1;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{-webkit-font-smoothing:antialiased;}
+
+  body{
+    width:100%;max-width:1080px;margin:0 auto;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Lato",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+    font-size:15px;
+    line-height:1.6;
+  }
+
+  .wrap{padding:0 76px;}
+
+  /* ---------- shared type ---------- */
+  .eyebrow{
+    font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:10.5px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--ink-3);
+  }
+  .h2{
+    font-family:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:29px;
+    line-height:1.22;
+    letter-spacing:-.005em;
+    font-weight:700;
+  }
+  .lede{font-size:15.5px;color:var(--ink-2);max-width:660px;}
+
+  .sec{padding:56px 0;border-top:1px solid var(--rule);break-inside:avoid;}
+  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:30px;}
+  .sec-head .eyebrow{white-space:nowrap;padding-top:2px;}
+
+  /* ---------- hero ---------- */
+  .hero{padding:66px 0 58px;}
+  .brandbar{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-bottom:26px;margin-bottom:44px;border-bottom:1px solid var(--rule);
+  }
+  .mark{display:flex;align-items:center;gap:12px;}
+  .mark-glyph{
+    width:26px;height:26px;border:2.5px solid var(--teal);border-radius:50%;
+    position:relative;flex:none;
+  }
+  .mark-glyph:after{
+    content:"";position:absolute;left:50%;top:50%;
+    width:2.5px;height:9px;background:var(--teal);
+    transform:translate(-50%,-92%);
+  }
+  .mark-word{
+    font-family:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-weight:700;font-size:17px;letter-spacing:.01em;
+  }
+  .brandbar .eyebrow{text-align:right;line-height:1.5;}
+
+  h1{
+    font-family:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:50px;line-height:1.26;font-weight:700;letter-spacing:-.015em;
+    max-width:880px;
+  }
+  h1 em{font-style:normal;color:var(--teal);}
+  .hero-sub{
+    margin-top:24px;font-size:18px;line-height:1.55;color:var(--ink-2);max-width:640px;
+  }
+  .hero-meta{
+    display:flex;gap:0;margin-top:44px;border-top:1px solid var(--rule);
+  }
+  .hero-meta div{
+    flex:1;padding:18px 22px 0 0;
+  }
+  .hero-meta div + div{padding-left:22px;border-left:1px solid var(--rule);}
+  .hero-meta .k{
+    font-family:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:19px;font-weight:700;letter-spacing:-.01em;
+  }
+  .hero-meta .v{font-size:12.5px;color:var(--ink-3);margin-top:2px;}
+
+  /* ---------- problem ---------- */
+  .prob{display:flex;gap:0;margin-top:6px;}
+  .prob div{flex:1;padding-right:26px;}
+  .prob div + div{padding-left:26px;border-left:1px solid var(--rule);}
+  .prob .t{
+    font-family:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-weight:700;font-size:15.5px;margin-bottom:7px;
+  }
+  .prob .d{font-size:14px;color:var(--ink-2);line-height:1.55;}
+  .prob-note{
+    margin-top:30px;padding:16px 20px;background:var(--surface);
+    font-size:13.5px;color:var(--ink-2);border-left:3px solid var(--teal);
+  }
+
+  /* ---------- journey (signature) ---------- */
+  .lane{position:relative;margin-top:8px;}
+  .lane-rule{
+    position:absolute;left:0;right:0;top:34px;height:1px;background:var(--rule-strong);
+  }
+  .bays{display:flex;position:relative;}
+  .bay{flex:1;padding-right:20px;}
+  .bay:last-child{padding-right:0;}
+  .bay-no{
+    font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:11px;letter-spacing:.1em;color:var(--teal);margin-bottom:14px;
+  }
+  .bay-tick{
+    width:9px;height:9px;border-radius:50%;background:var(--paper);
+    border:2px solid var(--teal);position:relative;top:0;margin-bottom:18px;
+  }
+  .bay-t{
+    font-family:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-weight:700;font-size:15px;margin-bottom:6px;
+  }
+  .bay-d{font-size:13px;color:var(--ink-2);line-height:1.5;padding-right:6px;}
+  .bay-hw{
+    font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:10px;letter-spacing:.05em;color:var(--ink-3);margin-top:10px;
+    padding-top:8px;border-top:1px solid var(--rule);padding-right:6px;line-height:1.5;
+  }
+
+  /* ---------- software ---------- */
+  .soft{display:flex;gap:22px;margin-top:4px;}
+  .card{break-inside:avoid;
+    flex:1;border:1px solid var(--rule);background:var(--paper);
+    padding:22px 22px 24px;
+  }
+  .card-t{
+    font-family:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-weight:700;font-size:15.5px;margin-bottom:6px;
+  }
+  .card-d{font-size:13px;color:var(--ink-2);line-height:1.5;min-height:60px;}
+  .card-fig{margin-top:16px;}
+  .built{
+    margin-top:26px;font-size:13.5px;color:var(--ink-2);
+  }
+  .built b{color:var(--ink);font-weight:700;}
+
+  /* ---------- hardware ---------- */
+  .hw{display:flex;flex-wrap:wrap;margin-top:4px;border-top:1px solid var(--rule);}
+  .hw-row{
+    width:50%;display:flex;align-items:baseline;gap:14px;
+    padding:13px 24px 13px 0;border-bottom:1px solid var(--rule);
+  }
+  .hw-row:nth-child(even){padding-left:24px;border-left:1px solid var(--rule);}
+  .hw-name{font-size:14px;flex:1;line-height:1.4;}
+  .hw-id{
+    font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:11px;color:var(--ink-3);letter-spacing:.04em;white-space:nowrap;
+  }
+  .hw-stage{
+    font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--teal);width:66px;flex:none;
+  }
+
+  /* ---------- partners ---------- */
+  .ptn{display:flex;gap:0;margin-top:6px;}
+  .ptn div{flex:1;padding:0 22px;}
+  .ptn div:first-child{padding-left:0;}
+  .ptn div:last-child{padding-right:0;}
+  .ptn div + div{border-left:1px solid var(--rule);}
+  .ptn .role{
+    font-family:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-weight:700;font-size:15px;margin-bottom:6px;
+  }
+  .ptn .give{font-size:13px;color:var(--ink-2);line-height:1.5;}
+  .ptn .ex{
+    font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:10px;color:var(--ink-3);margin-top:9px;letter-spacing:.03em;line-height:1.5;
+  }
+
+  /* ---------- results ---------- */
+  .res-grid{display:flex;flex-wrap:wrap;gap:0;margin-top:6px;}
+  .res{
+    width:33.333%;padding:18px 24px 18px 0;display:flex;gap:12px;align-items:flex-start;
+  }
+  .res-bullet{
+    width:6px;height:6px;background:var(--teal);flex:none;margin-top:8px;
+  }
+  .res-t{font-size:14px;line-height:1.5;}
+  .res-t b{font-weight:700;}
+  .scale{
+    margin-top:26px;padding:22px 24px;background:var(--teal);color:#EAF3F3;
+    display:flex;align-items:center;justify-content:space-between;gap:30px;
+  }
+  .scale-t{
+    font-family:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:18px;font-weight:700;line-height:1.3;color:#FFFFFF;max-width:460px;
+  }
+  .scale-n{display:flex;gap:34px;}
+  .scale-n div{text-align:right;}
+  .scale-n .k{
+    font-family:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:23px;font-weight:700;color:#FFFFFF;line-height:1.1;
+  }
+  .scale-n .v{
+    font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;
+    color:#A8C9CC;margin-top:5px;
+  }
+
+  /* ---------- footer ---------- */
+  .foot{
+    border-top:1px solid var(--rule);padding:26px 0 40px;
+    display:flex;justify-content:space-between;align-items:flex-start;gap:40px;
+  }
+  .foot .eyebrow{line-height:1.7;}
+  .foot-note{font-size:11.5px;color:var(--ink-3);max-width:520px;line-height:1.6;}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:1040px){
+    .wrap{padding:0 44px;}
+    h1{font-size:44px;}
+    .h2{font-size:26px;}
+    .bay-d{font-size:12.5px;}
+    .soft{gap:16px;}
+  }
+  @media (max-width:860px){
+    .wrap{padding:0 32px;}
+    h1{font-size:38px;}
+    .hero{padding:44px 0 40px;}
+    .sec{padding:44px 0;}
+    .sec-head{flex-direction:column;gap:8px;}
+    .hero-meta,.prob,.ptn,.soft,.bays{flex-wrap:wrap;}
+    .hero-meta div,.prob div,.ptn div{flex:1 1 46%;min-width:230px;}
+    .hero-meta div + div,.prob div + div,.ptn div + div{border-left:0;padding-left:0;}
+    .prob div,.ptn div{padding:0 0 22px 0;}
+    .hero-meta div{padding:16px 0 0 0;}
+    .bay{flex:1 1 46%;min-width:230px;padding:0 0 26px 0;}
+    .lane-rule{display:none;}
+    .card{flex:1 1 100%;}
+    .res{width:50%;}
+    .hw-row{width:100%;padding-left:0 !important;border-left:0 !important;}
+    .scale{flex-direction:column;align-items:flex-start;gap:20px;}
+    .scale-n{gap:26px;}
+    .scale-n div{text-align:left;}
+    .foot{flex-direction:column;gap:20px;}
+  }
+  @media (max-width:560px){
+    .wrap{padding:0 22px;}
+    h1{font-size:31px;}
+    .h2{font-size:23px;}
+    .hero-sub{font-size:16px;}
+    .brandbar{flex-direction:column;align-items:flex-start;gap:14px;}
+    .brandbar .eyebrow{text-align:left;}
+    .hero-meta div,.prob div,.ptn div,.bay{flex:1 1 100%;}
+    .res{width:100%;}
+    .scale-n{flex-wrap:wrap;gap:20px 30px;}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important;}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ===================== HERO ===================== -->
+  <header class="hero">
+    <div class="brandbar">
+      <div class="mark">
+        <div class="mark-glyph"></div>
+        <div class="mark-word">PIT&nbsp;STOP</div>
+      </div>
+      <div class="eyebrow">
+        Go Healthy with Taiwan 2026<br>
+        FEU Institute of Technology &middot; Metro Manila
+      </div>
+    </div>
+
+    <h1>Health checks where riders<br>already <em>stop.</em></h1>
+
+    <p class="hero-sub">
+      Pit Stop turns fuel station forecourts into ten-minute occupational health
+      stations for Metro Manila's delivery and motorcycle-taxi riders — screening,
+      recovery, and clean-air protection, free to the rider.
+    </p>
+
+    <div class="hero-meta">
+      <div>
+        <div class="k">10 minutes</div>
+        <div class="v">One visit, on the forecourt</div>
+      </div>
+      <div>
+        <div class="k">Free to riders</div>
+        <div class="v">Platforms and insurers pay</div>
+      </div>
+      <div>
+        <div class="k">8,000 riders</div>
+        <div class="v">Three hubs, twelve months</div>
+      </div>
+      <div>
+        <div class="k">7 Taiwan devices</div>
+        <div class="v">Plus software we build</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== PROBLEM ===================== -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="eyebrow">The gap</div>
+      <div>
+        <h2 class="h2">Nobody is responsible for a rider's health.</h2>
+      </div>
+    </div>
+    <p class="lede" style="margin-bottom:30px;">
+      Most riders are classified as independent contractors. There is no employer,
+      so there is no occupational health programme — and no record that anything
+      is wrong until it becomes an emergency.
+    </p>
+
+    <div class="prob">
+      <div>
+        <div class="t">No regular screening</div>
+        <div class="d">
+          No blood pressure checks tied to work, no baseline, no follow-up.
+          Risk stays invisible until a rider collapses or crashes.
+        </div>
+      </div>
+      <div>
+        <div class="t">No exposure monitoring</div>
+        <div class="d">
+          Riders breathe roadside traffic air for eight to twelve hours a day.
+          Nobody measures what they actually take in, or where.
+        </div>
+      </div>
+      <div>
+        <div class="t">No occupational support</div>
+        <div class="d">
+          No recovery, no protective equipment, no referral pathway.
+          Missing a day of work means losing a day of income.
+        </div>
+      </div>
+    </div>
+
+    <div class="prob-note">
+      Riders cannot fund this themselves — margins are thin, and motorcycle
+      purchase loans ran at roughly three times the national consumer default
+      rate in 2024. So Pit Stop is free at the point of use, and sold to the
+      platforms and insurers already carrying the cost of rider risk.
+    </div>
+  </section>
+
+  <!-- ===================== HOW IT WORKS ===================== -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="eyebrow">How it works</div>
+      <div><h2 class="h2">One rider, five stops, ten minutes.</h2></div>
+    </div>
+    <p class="lede" style="margin-bottom:34px;">
+      Riders don't come in for a health check. They come in for their back —
+      and everything else happens while they're already sitting there.
+    </p>
+
+    <div class="lane">
+      <div class="lane-rule"></div>
+      <div class="bays">
+        <div class="bay">
+          <div class="bay-no">01</div>
+          <div class="bay-tick"></div>
+          <div class="bay-t">Relief</div>
+          <div class="bay-d">Five minutes of guided muscle release for the lower back and neck.</div>
+          <div class="bay-hw">XBlade Smart Muscle<br>Release Device</div>
+        </div>
+        <div class="bay">
+          <div class="bay-no">02</div>
+          <div class="bay-tick"></div>
+          <div class="bay-t">Screening</div>
+          <div class="bay-d">Blood pressure in ninety seconds, returned as a clear risk level.</div>
+          <div class="bay-hw">Bluetooth BP monitor with<br>stroke risk detection</div>
+        </div>
+        <div class="bay">
+          <div class="bay-no">03</div>
+          <div class="bay-tick"></div>
+          <div class="bay-t">Protection</div>
+          <div class="bay-d">Powered air filtration a rider will still wear in 34&deg;C heat.</div>
+          <div class="bay-hw">Mask Personal Air Purifier<br>Wearable purifier + earphones</div>
+        </div>
+        <div class="bay">
+          <div class="bay-no">04</div>
+          <div class="bay-tick"></div>
+          <div class="bay-t">Record</div>
+          <div class="bay-d">Rider-controlled footage that turns a disputed crash into a claim.</div>
+          <div class="bay-hw">DrivePro Body 10</div>
+        </div>
+        <div class="bay">
+          <div class="bay-no">05</div>
+          <div class="bay-tick"></div>
+          <div class="bay-t">Exposure</div>
+          <div class="bay-d">Air readings from the route and the hub, mapped over time.</div>
+          <div class="bay-hw">Air Quality Detector II<br>Air Monitor Pro</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SOFTWARE ===================== -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="eyebrow">The software</div>
+      <div><h2 class="h2">The part we build ourselves.</h2></div>
+    </div>
+    <p class="lede" style="margin-bottom:32px;">
+      The devices collect. The software is what makes ten minutes on a forecourt
+      add up to something — a record, a risk level, and a map of where the air is worst.
+    </p>
+
+    <div class="soft">
+
+      <!-- technician app -->
+      <div class="card">
+        <div class="card-t">Technician app</div>
+        <div class="card-d">
+          The ten-minute workflow on one tablet. Reads the devices, saves offline,
+          syncs when signal returns — so no reading is ever lost in a dead zone.
+        </div>
+        <div class="card-fig">
+          <svg width="100%" height="118" viewBox="0 0 290 118" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="0.5" width="289" height="117" fill="#F1F4F5" stroke="#DCE3E5"/>
+            <rect x="14" y="14" width="66" height="7" rx="3.5" fill="#0E5C63"/>
+            <rect x="14" y="34" width="262" height="24" fill="#FFFFFF" stroke="#DCE3E5"/>
+            <rect x="24" y="43" width="82" height="6" rx="3" fill="#C3CDD1"/>
+            <rect x="228" y="43" width="38" height="6" rx="3" fill="#0E5C63"/>
+            <rect x="14" y="64" width="262" height="24" fill="#FFFFFF" stroke="#DCE3E5"/>
+            <rect x="24" y="73" width="104" height="6" rx="3" fill="#C3CDD1"/>
+            <rect x="238" y="73" width="28" height="6" rx="3" fill="#0E5C63"/>
+            <rect x="14" y="94" width="262" height="12" fill="#FFFFFF" stroke="#DCE3E5"/>
+            <rect x="24" y="98" width="60" height="5" rx="2.5" fill="#DCE3E5"/>
+            <circle cx="266" cy="100" r="3.5" fill="#E4922B"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- risk score -->
+      <div class="card">
+        <div class="card-t">Rider risk level</div>
+        <div class="card-d">
+          Blood pressure, exposure hours, recovery and tenure combined into one
+          clear level — with the reason shown, never a black box.
+        </div>
+        <div class="card-fig">
+          <svg width="100%" height="118" viewBox="0 0 290 118" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="0.5" width="289" height="117" fill="#F1F4F5" stroke="#DCE3E5"/>
+            <rect x="14" y="18" width="83" height="10" fill="#B9D4D6"/>
+            <rect x="103" y="18" width="83" height="10" fill="#5E9CA1"/>
+            <rect x="192" y="18" width="84" height="10" fill="#0E5C63"/>
+            <path d="M145 34 L150 42 L140 42 Z" fill="#E4922B"/>
+            <rect x="14" y="56" width="112" height="6" rx="3" fill="#C3CDD1"/>
+            <rect x="196" y="56" width="80" height="6" rx="3" fill="#0E5C63"/>
+            <rect x="14" y="74" width="132" height="6" rx="3" fill="#C3CDD1"/>
+            <rect x="216" y="74" width="60" height="6" rx="3" fill="#5E9CA1"/>
+            <rect x="14" y="92" width="96" height="6" rx="3" fill="#C3CDD1"/>
+            <rect x="236" y="92" width="40" height="6" rx="3" fill="#B9D4D6"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- exposure map -->
+      <div class="card">
+        <div class="card-t">Exposure map</div>
+        <div class="card-d">
+          Air readings tied to route and hour, building a picture of which
+          Metro Manila corridors cost riders the most to work.
+        </div>
+        <div class="card-fig">
+          <svg width="100%" height="118" viewBox="0 0 290 118" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="0.5" width="289" height="117" fill="#F1F4F5" stroke="#DCE3E5"/>
+            <g>
+              <rect x="16" y="16" width="24" height="24" fill="#D9E6E7"/>
+              <rect x="44" y="16" width="24" height="24" fill="#B9D4D6"/>
+              <rect x="72" y="16" width="24" height="24" fill="#D9E6E7"/>
+              <rect x="100" y="16" width="24" height="24" fill="#8FBABE"/>
+              <rect x="128" y="16" width="24" height="24" fill="#B9D4D6"/>
+              <rect x="156" y="16" width="24" height="24" fill="#D9E6E7"/>
+              <rect x="184" y="16" width="24" height="24" fill="#EDF3F3"/>
+              <rect x="212" y="16" width="24" height="24" fill="#D9E6E7"/>
+              <rect x="240" y="16" width="24" height="24" fill="#EDF3F3"/>
+
+              <rect x="16" y="44" width="24" height="24" fill="#B9D4D6"/>
+              <rect x="44" y="44" width="24" height="24" fill="#5E9CA1"/>
+              <rect x="72" y="44" width="24" height="24" fill="#0E5C63"/>
+              <rect x="100" y="44" width="24" height="24" fill="#5E9CA1"/>
+              <rect x="128" y="44" width="24" height="24" fill="#8FBABE"/>
+              <rect x="156" y="44" width="24" height="24" fill="#B9D4D6"/>
+              <rect x="184" y="44" width="24" height="24" fill="#D9E6E7"/>
+              <rect x="212" y="44" width="24" height="24" fill="#B9D4D6"/>
+              <rect x="240" y="44" width="24" height="24" fill="#D9E6E7"/>
+
+              <rect x="16" y="72" width="24" height="24" fill="#EDF3F3"/>
+              <rect x="44" y="72" width="24" height="24" fill="#B9D4D6"/>
+              <rect x="72" y="72" width="24" height="24" fill="#8FBABE"/>
+              <rect x="100" y="72" width="24" height="24" fill="#0E5C63"/>
+              <rect x="128" y="72" width="24" height="24" fill="#5E9CA1"/>
+              <rect x="156" y="72" width="24" height="24" fill="#8FBABE"/>
+              <rect x="184" y="72" width="24" height="24" fill="#B9D4D6"/>
+              <rect x="212" y="72" width="24" height="24" fill="#EDF3F3"/>
+              <rect x="240" y="72" width="24" height="24" fill="#D9E6E7"/>
+            </g>
+            <circle cx="84" cy="56" r="5" fill="none" stroke="#E4922B" stroke-width="2"/>
+            <circle cx="112" cy="84" r="5" fill="none" stroke="#E4922B" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="built">
+      <b>Built by the team, validated locally.</b> The software layer is developed
+      in-house and reviewed with a clinical partner before any rider data is collected.
+      Health records stay with the clinical entity; partners receive anonymised
+      summaries only.
+    </p>
+  </section>
+
+  <!-- ===================== TAIWAN EXCELLENCE ===================== -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="eyebrow">Taiwan Excellence</div>
+      <div><h2 class="h2">Seven devices, one rider journey.</h2></div>
+    </div>
+    <p class="lede" style="margin-bottom:26px;">
+      Every device earns its place by moving a rider one step further through the
+      visit. Nothing is included because it is impressive on its own.
+    </p>
+
+    <div class="hw">
+      <div class="hw-row">
+        <div class="hw-stage">Relief</div>
+        <div class="hw-name">XBlade Smart Muscle Release Device</div>
+        <div class="hw-id">1150538</div>
+      </div>
+      <div class="hw-row">
+        <div class="hw-stage">Screen</div>
+        <div class="hw-name">Bluetooth blood pressure monitor with stroke risk detection</div>
+        <div class="hw-id">109172</div>
+      </div>
+      <div class="hw-row">
+        <div class="hw-stage">Protect</div>
+        <div class="hw-name">Mask Personal Air Purifier</div>
+        <div class="hw-id">1140238</div>
+      </div>
+      <div class="hw-row">
+        <div class="hw-stage">Protect</div>
+        <div class="hw-name">Wearable air purifier &times; Bluetooth noise-cancelling earphones</div>
+        <div class="hw-id">1130200</div>
+      </div>
+      <div class="hw-row">
+        <div class="hw-stage">Record</div>
+        <div class="hw-name">Body Camera DrivePro Body 10</div>
+        <div class="hw-id">1140214</div>
+      </div>
+      <div class="hw-row">
+        <div class="hw-stage">Exposure</div>
+        <div class="hw-name">Air Quality Detector II</div>
+        <div class="hw-id">1110336</div>
+      </div>
+      <div class="hw-row">
+        <div class="hw-stage">Exposure</div>
+        <div class="hw-name">Air Monitor Pro &mdash; fixed reference node at each hub</div>
+        <div class="hw-id">109150</div>
+      </div>
+      <div class="hw-row" style="border-bottom:1px solid var(--rule);">
+        <div class="hw-stage">Later</div>
+        <div class="hw-name" style="color:#7A8992;">Cikada Urban eBike &middot; Folding e-Bike &middot; PakYak E+ &mdash; low-carbon delivery phase</div>
+        <div class="hw-id">&mdash;</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PARTNERS ===================== -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="eyebrow">The ecosystem</div>
+      <div><h2 class="h2">Four partners, four different jobs.</h2></div>
+    </div>
+    <p class="lede" style="margin-bottom:30px;">
+      Each one covers a part of the rider journey we cannot cover alone — which is
+      also why no single partner can be replaced by another.
+    </p>
+
+    <div class="ptn">
+      <div>
+        <div class="role">Delivery platform</div>
+        <div class="give">Brings riders in at scale, so we never acquire one rider at a time.</div>
+        <div class="ex">GRAB &middot; LALAMOVE &middot; FOODPANDA<br>ANGKAS &middot; JOYRIDE</div>
+      </div>
+      <div>
+        <div class="role">Fuel retailer</div>
+        <div class="give">Provides the forecourt, where riders already stop — so we build no clinics.</div>
+        <div class="ex">SEAOIL &middot; CLEANFUEL<br>SHELL &middot; PETRON</div>
+      </div>
+      <div>
+        <div class="role">Insurer</div>
+        <div class="give">Funds risk reduction, and gains real visibility into a pool it now prices blind.</div>
+        <div class="ex">IGLOO &middot; PIONEER<br>MALAYAN &middot; ETIQA</div>
+      </div>
+      <div>
+        <div class="role">Clinical validator</div>
+        <div class="give">Approves the protocol, the thresholds and the referral pathway.</div>
+        <div class="ex">UP MANILA<br>PHILIPPINE HEART ASSOCIATION</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== RESULTS ===================== -->
+  <section class="sec">
+    <div class="sec-head">
+      <div class="eyebrow">Expected outcomes</div>
+      <div><h2 class="h2">What a year of this should produce.</h2></div>
+    </div>
+
+    <div class="res-grid">
+      <div class="res">
+        <div class="res-bullet"></div>
+        <div class="res-t"><b>More riders screened</b> — at a place and time that costs them nothing to attend.</div>
+      </div>
+      <div class="res">
+        <div class="res-bullet"></div>
+        <div class="res-t"><b>Risk found earlier</b> — high blood pressure caught during a work break, not in an emergency room.</div>
+      </div>
+      <div class="res">
+        <div class="res-bullet"></div>
+        <div class="res-t"><b>Follow-up that holds</b> — clear thresholds, a named referral path, and a record that persists.</div>
+      </div>
+      <div class="res">
+        <div class="res-bullet"></div>
+        <div class="res-t"><b>Trust from riders</b> — health data stays with the clinical partner; platforms see summaries only.</div>
+      </div>
+      <div class="res">
+        <div class="res-bullet"></div>
+        <div class="res-t"><b>Exposure evidence</b> — the first route-level picture of what riders actually breathe.</div>
+      </div>
+      <div class="res">
+        <div class="res-bullet"></div>
+        <div class="res-t"><b>A model that repeats</b> — the same workflow moves to the next forecourt, and the next city.</div>
+      </div>
+    </div>
+
+    <div class="scale">
+      <div class="scale-t">Designed to keep running after the pilot year — not to end with it.</div>
+      <div class="scale-n">
+        <div>
+          <div class="k">8,000</div>
+          <div class="v">Riders in pilot</div>
+        </div>
+        <div>
+          <div class="k">~27,000</div>
+          <div class="v">Household members</div>
+        </div>
+        <div>
+          <div class="k">3 &rarr; more</div>
+          <div class="v">Hubs, then cities</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="foot">
+    <div class="eyebrow">
+      Pit Stop &middot; FEU Institute of Technology<br>
+      P. Paredes St., Sampaloc, Manila, Philippines<br>
+      Go Healthy with Taiwan 2026
+    </div>
+    <div class="foot-note">
+      Supporting material for a proposal. All companies named are intended
+      collaboration targets and prospective partners — no agreement or endorsement
+      is in place with any of them. Pilot figures are planning estimates. Pit Stop
+      supports preventive health and does not diagnose or replace medical care.
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>
